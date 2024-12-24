@@ -3,6 +3,7 @@ package tests;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.RegistrationPage;
 import pages.verification.RegistrationPageVerification;
@@ -20,11 +21,6 @@ public class RegistrationFormTests extends TestBase {
     String dayOfBirth = getDayOfBirth();
     String monthOfBirth = getMonthOfBirth();
     String yearOfBirth = getYearOfBirth();
-    String subjectFirst = getSubject();
-    String subjectSecond = getSubject();
-    String hobbies = getHobby();
-    String pathToFile = getPicture();
-    String currentAddress = getStreetAddress();
     String state = getState();
     String city = getCity();
 
@@ -37,42 +33,43 @@ public class RegistrationFormTests extends TestBase {
         registrationPage.openPage();
     }
 
-//    @Test
-//    void testSuccessfulRegistrationWithCompleteData(){
-//
-//        String[][] expectedValues = {
-//                {"Student Name", String.format("%s %s",firstName,lastName)},
-//                {"Student Email", email},
-//                {"Gender", gender},
-//                {"Mobile", phoneNumber},
-//                {"Date of Birth", String.format("%s %s,%s",dayOfBirth,monthOfBirth,yearOfBirth)},
-//                {"Subjects", String.format("%s, %s",subjectFirst,subjectSecond)},
-//                {"Hobbies", hobbies},
-//                {"Picture", pathToFile},
-//                {"Address", currentAddress},
-//                {"State and City", String.format("%s %s",state,city)}
-//        };
-//
-//        registrationPage.
-//                deleteBanners().
-//                setFirstName(firstName).
-//                setLastName(lastName).
-//                setEmail(email).
-//                setGender(gender).
-//                setPhone(phoneNumber).
-//                setDateOfBirth(dayOfBirth,monthOfBirth,yearOfBirth).
-//                setSubjectByInput(subjectFirst).
-//                setSubjectByInput(subjectSecond).
-//                setHobbyByCheckBox(hobbies).
-//                uploadFile(pathToFile).
-//                setCurrentAddress(currentAddress).
-//                setState(state).
-//                setCity(city).
-//                submit();
-//        for (String[] pair : expectedValues) {
-//            registrationVerification.checkResultTable(pair[0],pair[1]);
-//        }
-//    }
+    @CsvSource(value = {
+            "ул Маркса 18 к 1 129",
+            "st. Main 12 12342"
+    })
+    @Tags({
+            @Tag("REGRESS"),
+            @Tag("POSITIVE"),
+    })
+    @ParameterizedTest(name = "Форма регистрации отпраялется если заполнить адресс {0}")
+    void testRegistrationFormSubmissionWithDifferentAddressesOnMultipleLanguages(String currentAddress){
+
+        String[][] expectedValues = {
+                {"Student Name", String.format("%s %s",firstName,lastName)},
+                {"Student Email", email},
+                {"Gender", gender},
+                {"Mobile", phoneNumber},
+                {"Date of Birth", String.format("%s %s,%s",dayOfBirth,monthOfBirth,yearOfBirth)},
+                {"Address", currentAddress},
+                {"State and City", String.format("%s %s",state,city)}
+        };
+
+        registrationPage.
+                deleteBanners().
+                setFirstName(firstName).
+                setLastName(lastName).
+                setEmail(email).
+                setGender(gender).
+                setPhone(phoneNumber).
+                setDateOfBirth(dayOfBirth,monthOfBirth,yearOfBirth).
+                setCurrentAddress(currentAddress).
+                setState(state).
+                setCity(city).
+                submit();
+        for (String[] pair : expectedValues) {
+            registrationVerification.checkResultTable(pair[0],pair[1]);
+        }
+    }
 
     @CsvFileSource(resources = "/test_data/persanalDataForRegistration.csv")
     @Tags({

@@ -14,9 +14,6 @@ public class RegistrationPage {
             genderInput = $("#genterWrapper"),
             phoneInput = $("#userNumber"),
             dateOfBirthInput = $("#dateOfBirthInput"),
-            subjectsInput = $("#subjectsInput"),
-            hobbyCheckbox = $("#hobbiesWrapper"),
-            uploadPicture = $("#uploadPicture"),
             addressInput = $("#currentAddress"),
             stateSelector = $("#state"),
             citySelector = $("#city"),
@@ -75,22 +72,6 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setSubjectByInput(String subject) {
-        subjectsInput.setValue(subject).pressEnter();
-
-        return this;
-    }
-
-    public RegistrationPage setHobbyByCheckBox(String hobby) {
-        hobbyCheckbox.$(byText(hobby)).click();
-
-        return this;
-    }
-    public RegistrationPage uploadFile(String path) {
-        uploadPicture.uploadFromClasspath(path);
-
-        return this;
-    }
     public RegistrationPage setCurrentAddress(String address) {
         addressInput.setValue(address);
 

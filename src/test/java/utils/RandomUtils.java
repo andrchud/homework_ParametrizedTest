@@ -46,23 +46,6 @@ public class RandomUtils {
         return String.valueOf(year);
     }
 
-    public static String getSubject() {
-        return faker.options().option("Accounting", "Arts", "Biology",
-                "Chemistry", "Civics", "Commerce", "Computer Science", "Economics", "English", "Hindi",
-                "History", "Maths", "Physics", "Social Studies");
-    }
-
-    public static String getHobby() {
-        return faker.options().option("Sports", "Reading", "Music");
-    }
-
-    public static String getPicture() {
-        return faker.options().option("orshnik.png", "topol.png");
-    }
-
-    public static String getStreetAddress() {
-        return faker.address().streetAddress();
-    }
 
     public static String getState() {
         state = faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
